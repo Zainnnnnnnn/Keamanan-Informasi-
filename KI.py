@@ -1,6 +1,3 @@
-# Faiq Pataya Zain
-# 227006052
-
 from cryptography.fernet import Fernet
 
 def generate_key():
