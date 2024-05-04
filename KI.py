@@ -24,7 +24,7 @@ def encrypt_message(message, key):
 
 def decrypt_message(encrypted_message, key):
     """
-    mendekripsi kata-kata yang terencripsi mengunakan kunci yang disediakan.
+    mendekripsi kata-kata yang terenkripsi mengunakan kunci yang disediakan.
     """
     f = Fernet(key)
     decrypted_message = f.decrypt(encrypted_message).decode()
