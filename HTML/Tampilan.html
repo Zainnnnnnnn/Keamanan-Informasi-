@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/output.css">
+    <title>Algoritma Kriptografi</title>
+    <style>
+        * {
+            font-family: Verdana, Tahoma, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('LOGO\ UNSIL.png');
+            background-size: 845px;
+            background-position: cover;
+            background-color: #ccc;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #111111;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+        }
+
+        input, textarea, select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #32572b;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #ebebeb;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 50px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-container button {
+            margin-right: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .save-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .save-btn-container button {
+            margin: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="">
+        <h1>Identitas:</h1>
+        <h3>Nama: Faiq Pataya Zain</h3>
+        <h3>NPM: 227006052</h3>
+        <h3>Kelas: B</h3>
+    </div>
+
+    <div class="bg-white px-10 py-10 flex flex-col gap-5 border-2 border-indigo-500 rounded-md">
+        <h1 class="text-3xl text-indigo-500 font-bold iphone:text-xl iphone:max-w-[50vw]">Encrypt and Decrypt Tool</h1>
+        <div class="flex flex-col gap-2">
+            <label for="message" class="text-gray-500">Masukan Pesan</label>
+            <textarea name="message" class="border-2 border-indigo-700 rounded-md px-2 py-1 iphone:w-[80vw]" id="message" placeholder="Aku adalah Manusia" cols="30" rows="3"></textarea>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label for="key" class="text-gray-500">Masukan Kunci</label>
+            <textarea name="key" class="border-2 border-indigo-700 rounded-md px-2 py-1 iphone:w-[80vw]" placeholder="Ukuran Kalimat tidak terbatas" id="key" cols="30" rows="3"></textarea>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn border-2 border-indigo-500 rounded-md px-3 py-1" onclick="encrypt()">Enkripsi</button>
+            <button class="btn border-2 border-indigo-500 rounded-md px-3 py-1" onclick="decrypt()">Dekripsi</button>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label class="text-gray-500" for="result">Hasil:</label>
+            <textarea class="border-2 border-indigo-700 rounded-md px-2 py-1 iphone:w-[80vw]" name="result" id="result" cols="30" rows="3"></textarea>
+        </div>
+
+        <div class="save-btn-container">
+            <button class="btn border-2 border-indigo-500 rounded-md px-3 py-1" onclick="saveCipherText()">Simpan Hasil</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+    function encrypt() {
+        const message = document.getElementById('message').value;
+        const key = document.getElementById('key').value;
+
+        const encryptedMessage = encryptMessage(message, key);
+        document.getElementById('result').value = `Cipherteks: ${encryptedMessage}`;
+
+    }
+
+    function decrypt() {
+        const encryptedMessage = document.getElementById('result').value.replace('Cipherteks: ', '');
+        const key = document.getElementById('key').value;
+
+        const decryptedMessage = decryptMessage(encryptedMessage, key);
+        document.getElementById('result').value = `Plainteks: ${decryptedMessage}`;
+    }
+
+    function encryptMessage(message, key) {
+        const encrypted = CryptoJS.AES.encrypt(message, key);
+        return encrypted.toString();
+    }
+
+    function decryptMessage(encryptMessage, key) {
+        const bytes = CryptoJS.AES.decrypt(encryptMessage, key);
+        const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+        return decrypted;
+    }
+
+    function saveCipherText() {
+        const cipherteks = document.getElementById('result').value.replace('Cipherteks: ', '');
+
+        const blob = new Blob([cipherteks], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Lembaran Hasil.txt';
+        a.click();
+    }
+</script>
+</body>
+</html>
