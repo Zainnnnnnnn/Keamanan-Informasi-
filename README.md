@@ -1,5 +1,5 @@
 # Keamanan-Informasi-
-Encrypt dan Decrypt menggunakan bahasa Pyhton yang simple dan mudah
+Encrypt dan Decrypt menggunakan bahasa HTML CSS dan JS
 
 Perkenalkan saya Faiq Pataya Zain dengan NPM 227006052 dari instansi Universitas Siliwangi prodi Informatika
 
